@@ -1,24 +1,33 @@
-
-//union is worse than find thats wat i thing
+//improvement of previous version of quick union
+// my way of finding the height 
+//has optimized quick union
+//will maintain an extra array sz[] to keep ht of each object 
 class UF{
 	int no;
-	int[] id;
+	int[] id,sz;
+	int cnt;
 	UF(int N){
 	 no = N;
 	 id = new int[N];
+	 sz = new int[N];
 	 for(int i=0;i<no;i++)
 		id[i]=i;
+		sz[i]=1;
 	}
 	void union(int p,int q)
 	{
 		int j,i;
 		i=root(p);
+		int h1=cnt;
 		j=root(q);
+		int h2=cnt;
 		if(i==j)
 			System.out.println("already conn");
 		
+		else if(sz[i]>sz[j])
+			{id[j]=i; sz[i] + = sz[j]}
 		else
-			id[j]=i;
+			{id[i]=j;sz[j] + = sz[i]}
 	}
 	boolean connected(int p,int q){
 		int i,j;
@@ -30,9 +39,10 @@ class UF{
 		
 	}
 	int root(int p)
-	{
+	{	
+		cnt=0;
 		while(id[p]!=p)
-			p=id[p];
+			{p=id[p];cnt++;}
 		return p;	
 	}
 	void print_id_array()
